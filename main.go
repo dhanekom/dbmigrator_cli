@@ -50,7 +50,7 @@ func main() {
 		migrationPath *string = new(string)
 		silentMode    *bool
 		allowFix      bool
-		logpath       *string
+		// logpath       *string
 	)
 
 	allowFix = false
@@ -63,7 +63,7 @@ func main() {
 	dbPassword = flag.String("password", "", "database password")
 	dbSSL = flag.String("dbssl", "disable", "database sslsettings (disable, prefer, require)")
 	migrationPath = flag.String("migration_path", "", "directory containing migration files")
-	logpath = flag.String("log_path", "", "full path of log file")
+	// logpath = flag.String("log_path", "", "full path of log file")
 	silentMode = flag.Bool("s", false, "allow command to run without any confirmation prompts")
 
 	_, err := os.Stat(".env")
@@ -89,7 +89,7 @@ func main() {
 		loadParam(dbPassword, "DBMIGRATOR_DB_PASSWORD", false)
 		loadParam(dbSSL, "DBMIGRATOR_DB_SSL", true)
 		loadParam(migrationPath, "DBMIGRATOR_MIGRATION_PATH", false)
-		loadParam(logpath, "DBMIGRATOR_LOG_PATH", false)
+		// loadParam(logpath, "DBMIGRATOR_LOG_PATH", false)
 		tmpAllowFix := os.Getenv("DBMIGRATOR_ALLOW_FIX")
 		allowFix, _ = strconv.ParseBool(tmpAllowFix)
 	}
@@ -148,23 +148,23 @@ func main() {
 
 	exPath = path.Dir(exPath)
 
-	if *logpath == "" {
-		*logpath = filepath.Join(exPath, "logs", appFilenameExclExt+".log")
-	}
+	// if *logpath == "" {
+	// 	*logpath = filepath.Join(exPath, "logs", appFilenameExclExt+".log")
+	// }
 
-	if _, err := os.Stat(filepath.Dir(*logpath)); os.IsNotExist(err) {
-		err = os.MkdirAll(filepath.Dir(*logpath), 0666)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
+	// if _, err := os.Stat(filepath.Dir(*logpath)); os.IsNotExist(err) {
+	// 	err = os.MkdirAll(filepath.Dir(*logpath), 0666)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// }
 
-	logFile, err := os.OpenFile(*logpath, os.O_APPEND|os.O_CREATE, 0666)
-	if err != nil {
-		migrator.Fmt_error.Println(err)
-		os.Exit(1)
-	}
-	defer logFile.Close()
+	// logFile, err := os.OpenFile(*logpath, os.O_APPEND|os.O_CREATE, 0666)
+	// if err != nil {
+	// 	migrator.Fmt_error.Println(err)
+	// 	os.Exit(1)
+	// }
+	// defer logFile.Close()
 
 	if _, err := os.Stat(*migrationPath); os.IsNotExist(err) {
 		err = os.MkdirAll(*migrationPath, 0666)
@@ -173,10 +173,10 @@ func main() {
 		}
 	}
 
-	infoLog = log.New(logFile, "INFO\t", log.Ldate|log.Ltime)
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	app.Infolog = infoLog
 
-	errorLog = log.New(logFile, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	errorLog = log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 	app.Errorlog = errorLog
 
 	var command, commandAttr string
