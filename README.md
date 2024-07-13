@@ -10,6 +10,11 @@ Run up or down migrations
 List migrations and quickly see problems (yellow) and the current migration version (green)
 ![](./docs/images/dbmigrator_list_with_gap.png)
 
+## Installation
+
+- Download and install Go (Golang): https://go.dev/dl/
+- In a terminal run <code>go install github.com/dhanekom/dbmigrator_cli@latest</code>
+
 ## Features
 
 - Create up and down sql migration files
@@ -22,14 +27,6 @@ List migrations and quickly see problems (yellow) and the current migration vers
 
 - PostgreSQL
 - MySQL
-
-## Building the cli application
-
-- Download and install Go (Golang): https://go.dev/dl/
-- Clone this git repo
-- Open terminal and navigate to the root directory of the repository
-- Run <code>go mod tidy</code> to pull all dependencies
-- Run <code>go build -o [directory or application full path] .\cmd\dbmigrator\\.</code>
 
 ## Terminology
 
