@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path"
-	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -137,16 +135,16 @@ func main() {
 	app.AllowFix = allowFix
 	app.SilentMode = *silentMode
 
-	appFilename := os.Args[0]
-	appFilenameExclExt := appFilename[:len(appFilename)-len(filepath.Ext(appFilename))]
+	// appFilename := os.Args[0]
+	// appFilenameExclExt := appFilename[:len(appFilename)-len(filepath.Ext(appFilename))]
 
-	exPath, err := os.Executable()
-	if err != nil {
-		migrator.Fmt_error.Println(err)
-		os.Exit(1)
-	}
+	// exPath, err := os.Executable()
+	// if err != nil {
+	// 	migrator.Fmt_error.Println(err)
+	// 	os.Exit(1)
+	// }
 
-	exPath = path.Dir(exPath)
+	// exPath = path.Dir(exPath)
 
 	// if *logpath == "" {
 	// 	*logpath = filepath.Join(exPath, "logs", appFilenameExclExt+".log")
