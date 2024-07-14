@@ -135,35 +135,6 @@ func main() {
 	app.AllowFix = allowFix
 	app.SilentMode = *silentMode
 
-	// appFilename := os.Args[0]
-	// appFilenameExclExt := appFilename[:len(appFilename)-len(filepath.Ext(appFilename))]
-
-	// exPath, err := os.Executable()
-	// if err != nil {
-	// 	migrator.Fmt_error.Println(err)
-	// 	os.Exit(1)
-	// }
-
-	// exPath = path.Dir(exPath)
-
-	// if *logpath == "" {
-	// 	*logpath = filepath.Join(exPath, "logs", appFilenameExclExt+".log")
-	// }
-
-	// if _, err := os.Stat(filepath.Dir(*logpath)); os.IsNotExist(err) {
-	// 	err = os.MkdirAll(filepath.Dir(*logpath), 0666)
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-	// }
-
-	// logFile, err := os.OpenFile(*logpath, os.O_APPEND|os.O_CREATE, 0666)
-	// if err != nil {
-	// 	migrator.Fmt_error.Println(err)
-	// 	os.Exit(1)
-	// }
-	// defer logFile.Close()
-
 	if _, err := os.Stat(*migrationPath); os.IsNotExist(err) {
 		err = os.MkdirAll(*migrationPath, 0666)
 		if err != nil {
