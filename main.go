@@ -16,8 +16,9 @@ import (
 )
 
 var app config.AppConfig
-var infoLog *log.Logger
-var errorLog *log.Logger
+
+// var infoLog *log.Logger
+// var errorLog *log.Logger
 
 type Command struct {
 	command     string
@@ -142,11 +143,11 @@ func main() {
 		}
 	}
 
-	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
-	app.Infolog = infoLog
+	// infoLog = log.New(io.Discard, "INFO\t", log.Ldate|log.Ltime)
+	// app.Infolog = infoLog
 
-	errorLog = log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-	app.Errorlog = errorLog
+	// errorLog = log.New(io.Discard, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	// app.Errorlog = errorLog
 
 	var command, commandAttr string
 	if len(flag.Args())-1 > 2 {
@@ -179,21 +180,21 @@ func main() {
 	)
 
 	if err != nil {
-		errorLog.Println(err)
+		// errorLog.Println(err)
 		migrator.Fmt_error.Println(err)
 		os.Exit(1)
 	}
 
 	myMigrator, err := migrator.NewMigrator(*migrationPath, myDBRepo, &app)
 	if err != nil {
-		errorLog.Println(err)
+		// errorLog.Println(err)
 		migrator.Fmt_error.Println(err)
 		os.Exit(1)
 	}
 
 	err = run(myMigrator, command, commandAttr)
 	if err != nil {
-		errorLog.Println(err)
+		// errorLog.Println(err)
 		migrator.Fmt_error.Println(err)
 		os.Exit(1)
 	}
@@ -202,7 +203,7 @@ func main() {
 func run(m *migrator.Migrator, command, commandAttr string) error {
 	command = strings.ToLower(command)
 
-	m.App.Infolog.Printf("executed command %q with attributes %q", command, commandAttr)
+	// m.App.Infolog.Printf("executed command %q with attributes %q", command, commandAttr)
 
 	switch command {
 	case migrator.COMMAND_CREATE:
@@ -233,11 +234,11 @@ func listMigrationInfo(m *migrator.Migrator, option string) error {
 	}
 
 	defer func() {
-		m.App.Infolog.Println("closing DB")
+		// m.App.Infolog.Println("closing DB")
 		m.DBRepository.CloseDB()
 	}()
 
-	m.App.Infolog.Println("successfully connected to DB")
+	// m.App.Infolog.Println("successfully connected to DB")
 
 	err = m.DBRepository.SetupMigrationTable()
 	if err != nil {
@@ -316,11 +317,11 @@ func fixMigrations(m *migrator.Migrator) error {
 	}
 
 	defer func() {
-		m.App.Infolog.Println("closing DB")
+		// m.App.Infolog.Println("closing DB")
 		m.DBRepository.CloseDB()
 	}()
 
-	m.App.Infolog.Println("successfully connected to DB")
+	// m.App.Infolog.Println("successfully connected to DB")
 
 	err = m.DBRepository.SetupMigrationTable()
 	if err != nil {
@@ -354,7 +355,7 @@ Please type 'yes' to continue with the fix or 'no' to cancel`, currentVersion), 
 
 		msg = "migrating down all migrations"
 		migrator.Fmt_highlight.Println(msg)
-		m.App.Infolog.Println(funcPrefix + " - " + msg)
+		// m.App.Infolog.Println(funcPrefix + " - " + msg)
 		err = m.Migrate(migrator.COMMAND_DOWN, "")
 		if err != nil {
 			return fmt.Errorf(funcPrefix+" - %s", err)
@@ -368,7 +369,7 @@ Please type 'yes' to continue with the fix or 'no' to cancel`, lastValidVersion,
 
 		msg = fmt.Sprintf("migrating down to version %s", lastValidVersion)
 		migrator.Fmt_highlight.Println(msg)
-		m.App.Infolog.Println(funcPrefix + " - " + msg)
+		// m.App.Infolog.Println(funcPrefix + " - " + msg)
 		err = m.Migrate(migrator.COMMAND_GOTO, lastValidVersion)
 		if err != nil {
 			return fmt.Errorf(funcPrefix+" - %s", err)
@@ -377,7 +378,7 @@ Please type 'yes' to continue with the fix or 'no' to cancel`, lastValidVersion,
 
 	msg = fmt.Sprintf("migrating up to previous current version %s", currentVersion)
 	migrator.Fmt_highlight.Println(msg)
-	m.App.Infolog.Println(funcPrefix + " - " + msg)
+	// m.App.Infolog.Println(funcPrefix + " - " + msg)
 	err = m.Migrate(migrator.COMMAND_GOTO, currentVersion)
 	if err != nil {
 		return fmt.Errorf(funcPrefix+" - %s", err)
@@ -394,7 +395,7 @@ func listCurrentVersion(m *migrator.Migrator) error {
 	}
 
 	defer func() {
-		m.App.Infolog.Println("closing DB")
+		// m.App.Infolog.Println("closing DB")
 		m.DBRepository.CloseDB()
 	}()
 
@@ -406,13 +407,13 @@ func listCurrentVersion(m *migrator.Migrator) error {
 	if currentVersion == "" {
 		msg := "no migration have been run yet"
 		migrator.Fmt_highlight.Println(msg)
-		m.App.Infolog.Println(funcPrefix + " - " + msg)
+		// m.App.Infolog.Println(funcPrefix + " - " + msg)
 		return nil
 	}
 
 	msg := currentVersion
 	fmt.Println(msg)
-	m.App.Infolog.Println(funcPrefix + " - " + msg)
+	// m.App.Infolog.Println(funcPrefix + " - " + msg)
 
 	return nil
 }

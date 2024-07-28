@@ -3,7 +3,7 @@ module github.com/dhanekom/dbmigrator_cli
 go 1.22.2
 
 require (
-	github.com/dhanekom/dbmigrator v0.0.0-20240320131646-97aed241daff
+	github.com/dhanekom/dbmigrator v0.0.1
 	github.com/fatih/color v1.17.0
 	github.com/joho/godotenv v1.5.1
 )

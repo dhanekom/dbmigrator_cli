@@ -61,7 +61,6 @@ List migrations and quickly see problems (yellow) and the current migration vers
 | -dbname         | DBMIGRATOR_DB_NAME        |               | database name                                                       |
 | -dbssl          | DBMIGRATOR_DB_SSL         |               | database sslsettings (disable, prefer, require) (default "disable") |
 | -host           | DBMIGRATOR_DB_HOST        |               | database host IP or URL                                             |
-<!-- | -log_path       | DBMIGRATOR_LOG_PATH       | [appname].log | full path of log file                                               | -->
 | -migration_path | DBMIGRATOR_MIGRATION_PATH |               | directory containing migration files                                |
 | -password       | DBMIGRATOR_DB_PASSWORD    |               | database password                                                   |
 | -port           | DBMIGRATOR_DB_PORT        |               | database port                                                       |
